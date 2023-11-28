@@ -8,24 +8,13 @@ import java.util.Properties;
 
 public class DBConnexion {
     private static Connection connect;
-    private String userName;
-    private String password;
-    private String serverName;
-    private String portNumber;
-    private static String tableName;
-    private static String dbName;
+    private String userName = "root";
+    private String password = "";
+    private String serverName = "localhost";
+    private String portNumber = "3306";
+    private String tableName = "personne";
+    private static String dbName = "testpersonne";
     private DBConnexion() throws SQLException {
-        // variables a modifier en fonction de la base
-        this.userName = "root";
-        this.password = "";
-        this.serverName = "localhost";
-        //Attention, sous MAMP, le port est 8889
-        this.portNumber = "3306";
-        tableName = "personne";
-
-        // iL faut une base nommee testPersonne !
-        this.dbName = "testpersonne";
-
         // creation de la connection
         Properties connectionProps = new Properties();
         connectionProps.put("user", userName);
@@ -36,7 +25,11 @@ public class DBConnexion {
     }
     public static synchronized Connection getInstance() throws SQLException {
         if (connect == null) {
-            new DBConnexion();
+            try {
+                new DBConnexion();
+            } catch (SQLException e) {
+                throw new SQLException("Erreur de connexion à la base de données");
+            }
         }
         return connect;
     }
