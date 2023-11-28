@@ -104,4 +104,8 @@ public class Personne {
     public void setNom(String nom) {
         this.nom = nom;
     }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
 }
